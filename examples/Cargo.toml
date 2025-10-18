@@ -1,0 +1,23 @@
+[package]
+name = "togglr-sdk-examples"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "simple_example"
+path = "simple_example.rs"
+
+[[bin]]
+name = "advanced_example"
+path = "advanced_example.rs"
+
+[[bin]]
+name = "tls_example"
+path = "tls_example.rs"
+
+[dependencies]
+togglr-sdk = { path = ".." }
+tokio = { version = "1.0", features = ["full"] }
+chrono = { version = "0.4", features = ["serde"] }
+serde_json = "1.0"
+env_logger = "0.10"
