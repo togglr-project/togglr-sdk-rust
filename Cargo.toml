@@ -9,6 +9,13 @@ repository = "https://github.com/togglr-project/togglr-sdk-rust"
 keywords = ["feature-flags", "togglr", "sdk"]
 categories = ["api-bindings", "development-tools"]
 
+include = [
+    "src/**",
+    "generated/src/**",
+    "Cargo.toml",
+    "README.md",
+]
+
 [dependencies]
 # Generated OpenAPI client
 togglr_sdk_generated = { path = "generated" }
