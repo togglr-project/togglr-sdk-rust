@@ -19,7 +19,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-togglr-sdk = "1.1.0"
+togglr-sdk = "1.1.1"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
