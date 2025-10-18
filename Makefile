@@ -41,6 +41,9 @@ generate-api: ## Regenerate OpenAPI client
 	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|use crate::apis::|use crate::generated::apis::|g' {} \;
 	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|use crate::models|use crate::generated::models|g' {} \;
 	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|crate::apis::urlencode|crate::generated::apis::urlencode|g' {} \;
+	@echo "Clean up generated files..."
+	@rm -f src/generated/.gitignore src/generated/.travis.yml src/generated/git_push.sh src/generated/Cargo.toml src/generated/README.md 2>/dev/null || true
+	@rm -rf src/generated/.openapi-generator src/generated/docs 2>/dev/null || true
 	@echo "Done!"
 
 docs: ## Generate documentation
