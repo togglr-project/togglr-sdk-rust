@@ -11,7 +11,7 @@
 
 use reqwest;
 use serde::{Deserialize, Serialize, de::Error as _};
-use crate::{apis::ResponseContent, models};
+use crate::generated::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
@@ -77,7 +77,7 @@ pub async fn get_feature_health(configuration: &configuration::Configuration, fe
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_feature_key = feature_key;
 
-    let uri_str = format!("{}/sdk/v1/features/{feature_key}/health", configuration.base_path, feature_key=crate::apis::urlencode(p_path_feature_key));
+    let uri_str = format!("{}/sdk/v1/features/{feature_key}/health", configuration.base_path, feature_key=crate::generated::apis::urlencode(p_path_feature_key));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -122,7 +122,7 @@ pub async fn report_feature_error(configuration: &configuration::Configuration, 
     let p_path_feature_key = feature_key;
     let p_body_feature_error_report = feature_error_report;
 
-    let uri_str = format!("{}/sdk/v1/features/{feature_key}/report-error", configuration.base_path, feature_key=crate::apis::urlencode(p_path_feature_key));
+    let uri_str = format!("{}/sdk/v1/features/{feature_key}/report-error", configuration.base_path, feature_key=crate::generated::apis::urlencode(p_path_feature_key));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -158,7 +158,7 @@ pub async fn sdk_v1_features_feature_key_evaluate_post(configuration: &configura
     let p_path_feature_key = feature_key;
     let p_body_request_body = request_body;
 
-    let uri_str = format!("{}/sdk/v1/features/{feature_key}/evaluate", configuration.base_path, feature_key=crate::apis::urlencode(p_path_feature_key));
+    let uri_str = format!("{}/sdk/v1/features/{feature_key}/evaluate", configuration.base_path, feature_key=crate::generated::apis::urlencode(p_path_feature_key));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -239,7 +239,7 @@ pub async fn track_feature_event(configuration: &configuration::Configuration, f
     let p_path_feature_key = feature_key;
     let p_body_track_request = track_request;
 
-    let uri_str = format!("{}/sdk/v1/features/{feature_key}/track", configuration.base_path, feature_key=crate::apis::urlencode(p_path_feature_key));
+    let uri_str = format!("{}/sdk/v1/features/{feature_key}/track", configuration.base_path, feature_key=crate::generated::apis::urlencode(p_path_feature_key));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {

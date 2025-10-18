@@ -29,7 +29,19 @@ run-tls: ## Run TLS example
 	cargo run --example tls_example
 
 generate-api: ## Regenerate OpenAPI client
-	openapi-generator-cli generate -i specs/sdk.yml -g rust -o generated --package-name togglr_sdk_generated
+	openapi-generator-cli generate -i specs/sdk.yml -g rust -o src/generated --package-name togglr_sdk_generated
+	@echo "Move generated files..."
+	@if [ -d "src/generated/src" ]; then \
+		rm -rf src/generated/apis src/generated/models src/generated/lib.rs 2>/dev/null || true; \
+		mv src/generated/src/* src/generated/; \
+		rmdir src/generated/src; \
+	fi
+	@echo "Fix import paths..."
+	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|use crate::{apis::ResponseContent, models};|use crate::generated::{apis::ResponseContent, models};|g' {} \;
+	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|use crate::apis::|use crate::generated::apis::|g' {} \;
+	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|use crate::models|use crate::generated::models|g' {} \;
+	@find src/generated -name "*.rs" -type f -exec sed -i '' 's|crate::apis::urlencode|crate::generated::apis::urlencode|g' {} \;
+	@echo "Done!"
 
 docs: ## Generate documentation
 	cargo doc --open

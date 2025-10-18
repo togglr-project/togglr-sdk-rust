@@ -4,7 +4,7 @@ use std::collections::HashMap;
 use serde_json::Value;
 
 use crate::context::RequestContext;
-use togglr_sdk_generated::models::{TrackRequest, track_request::EventType as ApiEventType};
+use crate::generated::models::{TrackRequest, track_request::EventType as ApiEventType};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum EventType {

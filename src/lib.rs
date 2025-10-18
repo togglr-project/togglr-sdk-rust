@@ -5,6 +5,12 @@ pub mod errors;
 pub mod track_event;
 pub mod types;
 
+// Generated OpenAPI client
+pub mod generated {
+    pub mod apis;
+    pub mod models;
+}
+
 pub use client::TogglrClient;
 pub use config::{Config, ConfigBuilder, BackoffConfig};
 pub use context::RequestContext;

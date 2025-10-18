@@ -1,0 +1,7 @@
+# Игнорируем вспомогательные файлы генератора OpenAPI
+Cargo.toml
+README.md
+.travis.yml
+git_push.sh
+docs/
+.openapi-generator/

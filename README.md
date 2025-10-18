@@ -223,6 +223,47 @@ Run examples with:
 cargo run --example simple_example
 ```
 
+## Development
+
+### Regenerating OpenAPI Client
+
+The SDK uses OpenAPI Generator to generate the API client from the OpenAPI specification. The generated code is located in `src/generated/` and is part of the crate.
+
+To regenerate the client:
+
+```bash
+make generate-api
+```
+
+This command will:
+1. Generate the client code from `specs/sdk.yml`
+2. Move generated files to the correct location (`src/generated/`)
+3. Fix import paths to work within the main crate
+
+**Note**: The generated code is automatically integrated into the main crate and doesn't require a separate dependency.
+
+### Building and Testing
+
+```bash
+# Check code
+make check
+
+# Build the project
+make build
+
+# Run tests
+make test
+
+# Build examples
+make examples
+
+# Format code
+make format
+
+# Run clippy
+make clippy
+```
+
 ## License
 
 MIT License - see LICENSE file for details.

@@ -9,12 +9,12 @@ use crate::errors::{TogglrError, TogglrResult};
 use crate::track_event::TrackEvent;
 use crate::types::{EvaluateResponse, HealthResponse, FeatureHealth, FeatureErrorReport};
 
-use togglr_sdk_generated::apis::default_api::{
+use crate::generated::apis::default_api::{
     get_feature_health, report_feature_error, sdk_v1_features_feature_key_evaluate_post,
     sdk_v1_health_get, track_feature_event
 };
-use togglr_sdk_generated::apis::configuration::Configuration;
-use togglr_sdk_generated::models::{
+use crate::generated::apis::configuration::Configuration;
+use crate::generated::models::{
     TrackRequest, FeatureErrorReport as ApiFeatureErrorReport
 };
 
@@ -30,7 +30,7 @@ impl TogglrClient {
         let mut configuration = Configuration::default();
         configuration.base_path = config.base_url.clone();
         configuration.client = http_client.clone();
-        configuration.api_key = Some(togglr_sdk_generated::apis::configuration::ApiKey {
+        configuration.api_key = Some(crate::generated::apis::configuration::ApiKey {
             prefix: None,
             key: config.api_key.clone(),
         });
@@ -60,7 +60,7 @@ impl TogglrClient {
             .map_err(|e| TogglrError::Unknown(format!("Health check failed: {:?}", e)))?;
         Ok(HealthResponse {
             status: match response.status {
-                togglr_sdk_generated::models::health_response::Status::Ok => "ok".to_string(),
+                crate::generated::models::health_response::Status::Ok => "ok".to_string(),
             },
             server_time: response.server_time,
         })
@@ -133,7 +133,7 @@ impl TogglrClient {
         track_feature_event(&self.configuration, feature_key, request.clone())
             .await
             .map_err(|e| match e {
-                togglr_sdk_generated::apis::Error::Reqwest(reqwest_err) => {
+                crate::generated::apis::Error::Reqwest(reqwest_err) => {
                     if reqwest_err.is_timeout() {
                         TogglrError::Timeout(reqwest_err.to_string())
                     } else if reqwest_err.is_connect() {
@@ -142,10 +142,10 @@ impl TogglrClient {
                         TogglrError::HttpError(reqwest_err)
                     }
                 }
-                togglr_sdk_generated::apis::Error::Serde(serde_err) => {
+                crate::generated::apis::Error::Serde(serde_err) => {
                     TogglrError::SerializationError(serde_err)
                 }
-                togglr_sdk_generated::apis::Error::ResponseError(response) => {
+                crate::generated::apis::Error::ResponseError(response) => {
                     TogglrError::Unknown(format!("Response error: {:?}", response))
                 }
                 _ => TogglrError::Unknown(format!("Unknown error: {:?}", e)),
